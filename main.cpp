@@ -30,7 +30,7 @@ int main()
 
     last_day -= 1;
     int i = 0;
-    while (i++ < 10)
+    while (++i < 10)
         std::cout << ++last_day;
     std::cout << "===========================================================" << std::endl;
     std::cout << last_day++;
@@ -43,6 +43,17 @@ int main()
     std::cout << std::boolalpha << (last_day == project::Date{last_day + 1}) << '\n';
     std::cout << std::boolalpha << (last_day < project::Date{1 + last_day}) << '\n';
     std::cout << std::boolalpha << (last_day != project::Date{1 + last_day}) << '\n';
+    std::cout << "===========================================================" << std::endl;
 
+    project::Date::Weekday today = project::Date::Weekday::Monday;
+
+    i = 0;
+    while (i++ < 7)
+        std::cout << ++today << std::endl;
+    std::cout << "===========================================================" << std::endl;
+    i = 0;
+
+    while (i++ < 7)
+        std::cout << --today << std::endl;
     return 0;
 }

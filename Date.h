@@ -113,7 +113,8 @@ namespace project
         friend std::ostream &operator<<(std::ostream &os, const Date &date); //31
         friend std::istream &operator>>(std::istream &is, Date &date);       //32
     };
-
+    std::ostream &operator<<(std::ostream &os, const Date::Weekday &day);
+    std::ostream &operator<<(std::ostream &os, const Date::Month &month);
     bool operator<(const Date &, const Date &);  //27
     bool operator<=(const Date &, const Date &); //27
     bool operator>(const Date &, const Date &);  //27

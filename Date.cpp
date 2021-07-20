@@ -11,45 +11,43 @@ namespace project
         switch (month)
         {
         case (Date::Month::January):
-            os << "January";
-            return os;
+            return os << "January";
+
         case (Date::Month::February):
-            os << "February";
-            return os;
+            return os << "February";
+
         case (Date::Month::March):
-            os << "March";
-            return os;
+            return os << "March";
+
         case (Date::Month::April):
-            os << "April";
-            return os;
+            return os << "April";
+
         case (Date::Month::May):
-            os << "May";
-            return os;
+            return os << "May";
+
         case (Date::Month::June):
-            os << "June";
-            return os;
+            return os << "June";
+
         case (Date::Month::July):
-            os << "July";
-            return os;
+            return os << "July";
+
         case (Date::Month::August):
-            os << "August";
-            return os;
+            return os << "August";
+
         case (Date::Month::September):
-            os << "September";
-            return os;
+            return os << "September";
+
         case (Date::Month::October):
-            os << "October";
-            return os;
+            return os << "October";
+
         case (Date::Month::November):
-            os << "November";
-            return os;
+            return os << "November";
+
         case (Date::Month::December):
-            os << "December";
-            return os;
+            return os << "December";
 
         default:
-            os << "Error";
-            return os;
+            return os << "Error";
         }
     }
 
@@ -58,30 +56,28 @@ namespace project
         switch (weekday)
         {
         case (Date::Weekday::Monday):
-            os << "Monday";
-            return os;
+            return os << "Monday";
+
         case (Date::Weekday::Tuesday):
-            os << "Tuesday";
-            return os;
+            return os << "Tuesday";
+
         case (Date::Weekday::Wednesday):
-            os << "Wednesday";
-            return os;
+            return os << "Wednesday";
+
         case (Date::Weekday::Thursday):
-            os << "Thursday";
-            return os;
+            return os << "Thursday";
+
         case (Date::Weekday::Friday):
-            os << "Friday";
-            return os;
+            return os << "Friday";
+
         case (Date::Weekday::Saturday):
-            os << "Saturday";
-            return os;
+            return os << "Saturday";
+
         case (Date::Weekday::Sunday):
-            os << "Sunday";
-            return os;
+            return os << "Sunday";
 
         default:
-            os << "Error";
-            return os;
+            return os << "Error";
         }
     }
 
@@ -256,7 +252,7 @@ namespace project
 
     Date &Date::operator+=(unsigned int day)
     {
-        *this = operator+(*this,day);
+        *this = operator+(*this, day);
         return *this;
     }
 
@@ -293,20 +289,55 @@ namespace project
 
     //////////////////////////////////////////////////////// ARITHMETIC OPERATORS ////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////// GLOBAL ARITHMETIC OPERATORS ////////////////////////////////////////////////////////
+
     Date operator+(const Date &date, unsigned int n)
     {
         unsigned long current_date = date.date_to_integer(date.get_month_day(), date.get_month(), date.get_year()) + n;
         return Date{Date::integer_to_date(current_date)};
     }
 
-    Date operator+( unsigned int n, const Date &date)
+    Date operator+(unsigned int n, const Date &date)
     {
         return (date + n);
     }
 
+    unsigned int operator-(const Date &d1, const Date &d2)
+    {
+        return Date::date_to_integer(d1.get_month_day(), d1.get_month(), d1.get_year()) - Date::date_to_integer(d2.get_month_day(), d2.get_month(), d2.get_year());
+    }
+
+    Date::Weekday &operator++(Date::Weekday &r)
+    {
+        size_t day = (static_cast<int>(r) + 1);
+        day = day == 8 ? static_cast<int>(Date::Weekday::Monday) : day;
+        r = static_cast<Date::Weekday>(day);
+        return r;
+    }
+    Date::Weekday operator++(Date::Weekday &r, int)
+    {
+        Date::Weekday tmp{r};
+        ++r;
+        return tmp;
+    }
+    Date::Weekday &operator--(Date::Weekday &r)
+    {
+        size_t day = (static_cast<int>(r) - 1);
+        day = day == 0 ? static_cast<int>(Date::Weekday::Sunday) : day;
+        r = static_cast<Date::Weekday>(day);
+        return r;
+    }
+    Date::Weekday operator--(Date::Weekday &r, int)
+    {
+        Date::Weekday tmp{r};
+        --r;
+        return tmp;
+    }
+    //////////////////////////////////////////////////////// GLOBAL ARITHMETIC OPERATORS ////////////////////////////////////////////////////////
+
     //////////////////////////////////////////////////////// HELPERS ////////////////////////////////////////////////////////
 
-    constexpr inline unsigned long Date::date_to_integer(unsigned int d, unsigned int m, unsigned int y)  //https://web.archive.org/web/20131226174531/http://home.roadrunner.com/~hinnant/date_algorithms.html
+    constexpr inline unsigned long Date::date_to_integer(unsigned int d, unsigned int m, unsigned int y) //https://web.archive.org/web/20131226174531/http://home.roadrunner.com/~hinnant/date_algorithms.html
     {
         y -= m <= 2;
         const unsigned int era = y / 400;
@@ -316,7 +347,7 @@ namespace project
         return era * 146097 + static_cast<int>(doe) - 719468;
     }
 
-    inline Date Date::integer_to_date(unsigned long n)  //https://web.archive.org/web/20131226174531/http://home.roadrunner.com/~hinnant/date_algorithms.html
+    inline Date Date::integer_to_date(unsigned long n) //https://web.archive.org/web/20131226174531/http://home.roadrunner.com/~hinnant/date_algorithms.html
     {
         n += 719468;
         const int era = n / 146097;
