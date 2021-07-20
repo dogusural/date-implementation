@@ -249,12 +249,6 @@ namespace project
         return Date{integer_to_date(current_date)};
     }
 
-    // Date Date::operator+(unsigned int day) const
-    // {
-    //     unsigned long current_date = date_to_integer(get_month_day(), get_month(), get_year()) + day;
-    //     return Date{integer_to_date(current_date)};
-    // }
-
     Date &Date::operator+=(unsigned int day)
     {
         *this = operator+(*this,day);
@@ -298,6 +292,11 @@ namespace project
     {
         unsigned long current_date = date.date_to_integer(date.get_month_day(), date.get_month(), date.get_year()) + n;
         return Date{Date::integer_to_date(current_date)};
+    }
+
+    Date operator+( unsigned int n, const Date &date)
+    {
+        return (date + n);
     }
 
     //////////////////////////////////////////////////////// HELPERS ////////////////////////////////////////////////////////

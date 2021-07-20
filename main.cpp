@@ -33,15 +33,15 @@ int main()
     while (i++ < 10)
         std::cout << ++last_day;
     std::cout << "===========================================================" << std::endl;
-        std::cout <<last_day++;
-        std::cout <<++last_day;
+    std::cout << last_day++;
+    std::cout << ++last_day;
     std::cout << "===========================================================" << std::endl;
     ;
 
-    std::cout << std::boolalpha << (last_day <= project::Date{last_day+1})  << '\n';
-    std::cout << std::boolalpha << (last_day >= project::Date{last_day-1})  << '\n';
-    std::cout << std::boolalpha << (last_day == project::Date{last_day+1})  << '\n';
-
+    std::cout << std::boolalpha << (last_day <= project::Date{last_day + 1}) << '\n';
+    std::cout << std::boolalpha << (last_day >= project::Date{last_day - 1}) << '\n';
+    std::cout << std::boolalpha << (last_day == project::Date{last_day + 1}) << '\n';
+    std::cout << std::boolalpha << (last_day < project::Date{1 + last_day}) << '\n';
 
     return 0;
 }
