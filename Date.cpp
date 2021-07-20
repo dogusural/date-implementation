@@ -85,6 +85,21 @@ namespace project
     {
         os << date.get_month_day() << " " << date.get_month_year() << " " << date.get_year() << " " << date.get_week_day() << "\n";
     }
+
+    std::istream &operator>>(std::istream &is, Date &date)
+    {
+        int day, month, year;
+        char ch1, ch2;
+        is >> day >> ch1 >> month >> ch2 >> year;
+
+        if (ch1 != '/' || ch2 != '/')
+        {
+            std::cerr << ("invalid date format use m/d/y");
+            return is;
+        }
+        date.set(day, month, year);
+        return is;
+    }
     //////////////////////////////////////////////////////// STREAM OPERATORS ////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////// LOGICAL OPERATORS ////////////////////////////////////////////////////////

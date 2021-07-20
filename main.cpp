@@ -55,5 +55,10 @@ int main()
 
     while (i++ < 7)
         std::cout << --today << std::endl;
+
+    project::Date input_date{};
+    std::cin >> input_date;
+    std::cout << input_date;
+
     return 0;
 }
