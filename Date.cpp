@@ -112,6 +112,11 @@ namespace project
     {
         return (left.date_to_integer(left.get_month_day(), left.get_month(), left.get_year()) == right.date_to_integer(right.get_month_day(), right.get_month(), right.get_year()));
     }
+    bool operator!=(const Date &left, const Date &right)
+    {
+        return !(left == right);
+    }
+
     //////////////////////////////////////////////////////// LOGICAL OPERATORS ////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////// CONSTRUCTORS ////////////////////////////////////////////////////////

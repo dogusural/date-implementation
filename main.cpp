@@ -42,6 +42,7 @@ int main()
     std::cout << std::boolalpha << (last_day >= project::Date{last_day - 1}) << '\n';
     std::cout << std::boolalpha << (last_day == project::Date{last_day + 1}) << '\n';
     std::cout << std::boolalpha << (last_day < project::Date{1 + last_day}) << '\n';
+    std::cout << std::boolalpha << (last_day != project::Date{1 + last_day}) << '\n';
 
     return 0;
 }
