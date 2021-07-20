@@ -91,13 +91,17 @@ namespace project
         int day, month, year;
         char ch1, ch2;
         is >> day >> ch1 >> month >> ch2 >> year;
-
         if (ch1 != '/' || ch2 != '/')
         {
-            std::cerr << ("invalid date format use m/d/y");
-            return is;
+            throw bad_date{"invalid date format use d/m/y"};
         }
+
         date.set(day, month, year);
+
+        if (!(Date::is_valid_date(date)))
+        {
+            throw bad_date{"invalid date format, use a valid value for Date and Month"};
+        }
         return is;
     }
     //////////////////////////////////////////////////////// STREAM OPERATORS ////////////////////////////////////////////////////////
@@ -186,17 +190,13 @@ namespace project
 
     unsigned int Date::get_year_day() const
     {
-        const int *tmp_month_days = nullptr;
-        if (isleap(get_year()))
-            tmp_month_days = leap_month_days;
-        else
-            tmp_month_days = month_days;
+        const unsigned int *month_days = get_day_each_month();
 
         size_t year_day = 0;
 
         for (unsigned int month = 1; month + 1 < get_month(); month++)
         {
-            year_day += tmp_month_days[month];
+            year_day += month_days[month];
         }
 
         if (isleap(get_year()) && get_month() > static_cast<int>(Date::Month::February))
@@ -228,6 +228,15 @@ namespace project
     {
         return static_cast<Date::Month>(get_month());
     }
+
+    const unsigned int *Date::get_day_each_month() const
+    {
+        if (isleap(get_year()))
+            return leap_month_days;
+        else
+            return month_days;
+    }
+
     //////////////////////////////////////////////////////// GETTERS ////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////// SETTERS ////////////////////////////////////////////////////////
@@ -380,6 +389,19 @@ namespace project
     {
         return (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0));
     }
+
+    inline bool Date::is_valid_date(const Date &date)
+    {
+        const unsigned int *month_days = date.get_day_each_month();
+        std::cout << (date.get_month_day()) << " " << month_days[date.get_month()] << " " << date.get_month_day() << std::endl;
+
+        if ((date.get_month_day() > month_days[date.get_month()]) || date.get_month_day() == 0)
+            return false;
+        if ((date.get_month() > 12) || date.get_month() == 0)
+            return false;
+        return true;
+    }
+
     //////////////////////////////////////////////////////// HELPERS ////////////////////////////////////////////////////////
 
 }

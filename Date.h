@@ -43,8 +43,8 @@ namespace project
     class Date
     {
         date_members m_date;
-        static constexpr int month_days[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};      // gave an offset of "0" first element to match the first indice to 1
-        static constexpr int leap_month_days[] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // gave an offset of "0" first element to match the first indice to 1
+        static constexpr unsigned int month_days[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};      // gave an offset of "0" first element to match the first indice to 1
+        static constexpr unsigned int leap_month_days[] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // gave an offset of "0" first element to match the first indice to 1
 
     public:
         static constexpr int year_base = 1900;       //1
@@ -80,34 +80,36 @@ namespace project
         explicit Date(unsigned int d, unsigned int m, unsigned int y); //6
         explicit Date(const char *p);                                  //7
         explicit Date(std::time_t timer);                              //8
-        unsigned int get_month_day() const;                   //9
-        unsigned int get_month() const;                       //10
-        unsigned int get_year() const;                        //11
-        unsigned int get_year_day() const;                    //12
-        Weekday get_week_day() const;                         //13
-        Month get_month_year() const;                         //14
+        unsigned int get_month_day() const;                            //9
+        unsigned int get_month() const;                                //10
+        unsigned int get_year() const;                                 //11
+        unsigned int get_year_day() const;                             //12
+        const unsigned int *get_day_each_month() const;
+        Weekday get_week_day() const; //13
+        Month get_month_year() const; //14
 
         Date &set_month_day(unsigned int day);                            //14
         Date &set_month(unsigned int month);                              //15
         Date &set_year(unsigned int year);                                //16
         Date &set(unsigned int day, unsigned int mon, unsigned int year); //17
         Date operator-(unsigned int day) const;                           //18
-        Date &operator+=(unsigned int day); //19
-        Date &operator-=(unsigned int day); //20
-        Date &operator++();                 //21
-        Date operator++(int);               //22
-        Date &operator--();                 //23
-        Date operator--(int);               //24
-        
+        Date &operator+=(unsigned int day);                               //19
+        Date &operator-=(unsigned int day);                               //20
+        Date &operator++();                                               //21
+        Date operator++(int);                                             //22
+        Date &operator--();                                               //23
+        Date operator--(int);                                             //24
+
         static constexpr inline unsigned long date_to_integer(unsigned int, unsigned int, unsigned int);
         static inline Date integer_to_date(unsigned long);
-        static Date random_date();                          //25
-        static inline constexpr bool isleap(unsigned int y);       //26
+        static Date random_date();
+        static inline constexpr bool isleap(unsigned int y);
+        static inline bool is_valid_date(const Date &date);
 
         friend bool operator<(const Date &, const Date &);  //27
         friend bool operator>(const Date &, const Date &);  //27
-        friend bool operator<=(const Date &, const Date &);  //27
-        friend bool operator>=(const Date &, const Date &);  //27
+        friend bool operator<=(const Date &, const Date &); //27
+        friend bool operator>=(const Date &, const Date &); //27
         friend bool operator==(const Date &, const Date &); //27
 
         friend std::ostream &operator<<(std::ostream &os, const Date &date); //31
