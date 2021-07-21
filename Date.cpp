@@ -1,6 +1,7 @@
 #include "Date.h"
 #include <iostream>
 #include <vector>
+#include <random>
 
 namespace project
 {
@@ -403,5 +404,26 @@ namespace project
     }
 
     //////////////////////////////////////////////////////// HELPERS ////////////////////////////////////////////////////////
+    Date Date::random_date()
+    {
+        std::random_device dev;
+        std::mt19937 rng(dev());
+        std::uniform_int_distribution<std::mt19937::result_type> month(static_cast<int>(Date::Month::January), static_cast<int>(Date::Month::December)); // distribution in range [1, 6]
+        std::uniform_int_distribution<std::mt19937::result_type> year(random_min_year, random_max_year);
+        unsigned int random_year = year(rng);
+        unsigned int random_month = month(rng);
+        const unsigned int *month_days = get_day_each_month(random_year);
+        std::uniform_int_distribution<std::mt19937::result_type> day(1, month_days[random_month]);
+        unsigned int random_day = day(rng);
 
+        return Date{random_day,random_month,random_year};
+    }
+
+    const unsigned int *Date::get_day_each_month(const unsigned int year)
+    {
+        if (isleap(year))
+            return leap_month_days;
+        else
+            return month_days;
+    }
 }

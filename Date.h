@@ -105,6 +105,7 @@ namespace project
         static Date random_date();
         static inline constexpr bool isleap(unsigned int y);
         static inline bool is_valid_date(const Date &date);
+        static const unsigned int *get_day_each_month(const unsigned int);
 
         friend bool operator<(const Date &, const Date &);  //27
         friend bool operator>(const Date &, const Date &);  //27
