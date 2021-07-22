@@ -394,8 +394,6 @@ namespace project
     inline bool Date::is_valid_date(const Date &date)
     {
         const unsigned int *month_days = date.get_day_each_month();
-        std::cout << (date.get_month_day()) << " " << month_days[date.get_month()] << " " << date.get_month_day() << std::endl;
-
         if ((date.get_month_day() > month_days[date.get_month()]) || date.get_month_day() == 0)
             return false;
         if ((date.get_month() > 12) || date.get_month() == 0)
@@ -403,7 +401,6 @@ namespace project
         return true;
     }
 
-    //////////////////////////////////////////////////////// HELPERS ////////////////////////////////////////////////////////
     Date Date::random_date()
     {
         std::random_device dev;
@@ -426,4 +423,5 @@ namespace project
         else
             return month_days;
     }
+    //////////////////////////////////////////////////////// HELPERS ////////////////////////////////////////////////////////
 }
