@@ -56,10 +56,12 @@ int main()
     while (i++ < 7)
         std::cout << --today << std::endl;
 
-    project::Date input_date{};
-    std::cin >> input_date;
-    std::cout << input_date;
+    // project::Date input_date{};
+    // std::cin >> input_date;
+    // std::cout << input_date;
     std::cout<<project::Date::random_date();
+    std::cout<<project::Date{std::time(0)};
+
 
     return 0;
 }

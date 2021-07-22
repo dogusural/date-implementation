@@ -169,6 +169,13 @@ namespace project
             }
         }
     }
+    Date::Date(std::time_t timer)
+    {
+        std::time_t t = timer;
+        std::tm *now = std::localtime(&t);
+        set(now->tm_mday,now->tm_mon + 1,now->tm_year + 1900);
+    }
+
     //////////////////////////////////////////////////////// CONSTRUCTORS ////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////// GETTERS ////////////////////////////////////////////////////////
@@ -413,7 +420,7 @@ namespace project
         std::uniform_int_distribution<std::mt19937::result_type> day(1, month_days[random_month]);
         unsigned int random_day = day(rng);
 
-        return Date{random_day,random_month,random_year};
+        return Date{random_day, random_month, random_year};
     }
 
     const unsigned int *Date::get_day_each_month(const unsigned int year)
