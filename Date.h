@@ -8,18 +8,6 @@
 namespace project
 {
 
-    struct DATE
-    {
-        DATE(unsigned int day = 1, unsigned int month = 1, unsigned int year = 1900) : DAY{day}, MONTH{month}, YEAR{year}
-        {
-            if (!Date::is_valid_date(day, month, year))
-                throw bad_date{"Invalid date format. Use a valid value for Date and Month\n"};
-        }
-        unsigned int DAY;
-        unsigned int MONTH;
-        unsigned int YEAR;
-    };
-
     class bad_date : public std::logic_error
     {
     public:
@@ -37,9 +25,23 @@ namespace project
 
     class Date
     {
+        struct DATE
+        {
+            DATE(unsigned int day = 1, unsigned int month = 1, unsigned int year = 1900) : DAY{day}, MONTH{month}, YEAR{year}
+            {
+                if (!Date::is_valid_date(day, month, year))
+                    throw bad_date{"Invalid date format. Use a valid value for Date and Month\n"};
+            }
+            unsigned int DAY;
+            unsigned int MONTH;
+            unsigned int YEAR;
+        };
         DATE m_date;
         static constexpr unsigned int month_days[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};      // gave an offset of "0" first element to match the first indice to 1
         static constexpr unsigned int leap_month_days[] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // gave an offset of "0" first element to match the first indice to 1
+        Date &set_month_day(unsigned int day);
+        Date &set_month(unsigned int month);
+        Date &set_year(unsigned int year);
 
     public:
         static constexpr int year_base = 1900;       //1
@@ -83,9 +85,6 @@ namespace project
         Weekday get_week_day() const; //13
         Month get_month_year() const; //14
 
-        Date &set_month_day(unsigned int day);                            //14
-        Date &set_month(unsigned int month);                              //15
-        Date &set_year(unsigned int year);                                //16
         Date &set(unsigned int day, unsigned int mon, unsigned int year); //17
         Date operator-(unsigned int day) const;                           //18
         Date &operator+=(unsigned int day);                               //19
