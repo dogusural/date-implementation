@@ -8,21 +8,14 @@
 namespace project
 {
 
-    struct date_members
+    struct DATE
     {
-        date_members() : DATE{1, 1, 1990}
+        DATE(unsigned int day = 1, unsigned int month = 1, unsigned int year = 1900) : DAY{day}, MONTH{month}, YEAR{year}
         {
         }
-        date_members(unsigned int day, unsigned int month, unsigned int year) : DATE{day, month, year}
-        {
-        }
-        unsigned int DATE[3];
-        enum date_indice
-        {
-            DAY = 0,
-            MONTH,
-            YEAR
-        };
+        unsigned int DAY;
+        unsigned int MONTH;
+        unsigned int YEAR;
     };
 
     class bad_date : public std::logic_error
@@ -42,7 +35,7 @@ namespace project
 
     class Date
     {
-        date_members m_date;
+        DATE m_date;
         static constexpr unsigned int month_days[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};      // gave an offset of "0" first element to match the first indice to 1
         static constexpr unsigned int leap_month_days[] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // gave an offset of "0" first element to match the first indice to 1
 
@@ -105,6 +98,7 @@ namespace project
         static Date random_date();
         static inline constexpr bool isleap(unsigned int y);
         static inline bool is_valid_date(const Date &date);
+        static bool is_valid_date(unsigned int day, unsigned int month, unsigned int year);
         static const unsigned int *get_day_each_month(const unsigned int);
 
         friend bool operator<(const Date &, const Date &);  //27

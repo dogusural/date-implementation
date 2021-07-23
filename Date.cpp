@@ -99,10 +99,6 @@ namespace project
 
         date.set(day, month, year);
 
-        if (!(Date::is_valid_date(date)))
-        {
-            throw bad_date{"invalid date format, use a valid value for Date and Month"};
-        }
         return is;
     }
     //////////////////////////////////////////////////////// STREAM OPERATORS ////////////////////////////////////////////////////////
@@ -162,18 +158,14 @@ namespace project
         }
         else
         {
-            size_t i = 0;
-            for (auto &member : vec_date)
-            {
-                m_date.DATE[i++] = member;
-            }
+            set(vec_date[0], vec_date[1], vec_date[2]);
         }
     }
     Date::Date(std::time_t timer)
     {
         std::time_t t = timer;
         std::tm *now = std::localtime(&t);
-        set(now->tm_mday,now->tm_mon + 1,now->tm_year + 1900);
+        set(now->tm_mday, now->tm_mon + 1, now->tm_year + 1900);
     }
 
     //////////////////////////////////////////////////////// CONSTRUCTORS ////////////////////////////////////////////////////////
@@ -182,17 +174,17 @@ namespace project
 
     unsigned int Date::get_month_day() const
     {
-        return this->m_date.DATE[date_members::date_indice::DAY];
+        return this->m_date.DAY;
     }
 
     unsigned int Date::get_month() const
     {
-        return this->m_date.DATE[date_members::date_indice::MONTH];
+        return this->m_date.MONTH;
     }
 
     unsigned int Date::get_year() const
     {
-        return this->m_date.DATE[date_members::date_indice::YEAR];
+        return this->m_date.YEAR;
         ;
     }
 
@@ -222,9 +214,9 @@ namespace project
     Date::Weekday Date::get_week_day() const // Copy-pasted from https://www.geeksforgeeks.org/find-day-of-the-week-for-a-given-date/
     {
         size_t y, m, d, day = 0;
-        y = m_date.DATE[date_members::date_indice::YEAR];
-        m = m_date.DATE[date_members::date_indice::MONTH];
-        d = m_date.DATE[date_members::date_indice::DAY];
+        y = m_date.YEAR;
+        m = m_date.MONTH;
+        d = m_date.DAY;
         static int t[] = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
         y -= m < 3;
         day = ((y + y / 4 - y / 100 + y / 400 + t[m - 1] + d) % 7);
@@ -251,24 +243,28 @@ namespace project
 
     Date &Date::set_month_day(unsigned int day)
     {
-        this->m_date.DATE[date_members::date_indice::DAY] = day;
+        this->m_date.DAY = day;
         return *this;
     }
     Date &Date::set_month(unsigned int month)
     {
-        this->m_date.DATE[date_members::date_indice::MONTH] = month;
+        this->m_date.MONTH = month;
         return *this;
     }
     Date &Date::set_year(unsigned int year)
     {
-        this->m_date.DATE[date_members::date_indice::YEAR] = year;
+        this->m_date.YEAR = year;
         return *this;
     }
     Date &Date::set(unsigned int day, unsigned int month, unsigned int year)
     {
-        this->m_date.DATE[date_members::date_indice::DAY] = day;
-        this->m_date.DATE[date_members::date_indice::MONTH] = month;
-        this->m_date.DATE[date_members::date_indice::YEAR] = year;
+        if (!(Date::is_valid_date(day,month,year)))
+        {
+            throw bad_date{"invalid date format, use a valid value for Date and Month"};
+        }
+        this->m_date.DAY = day;
+        this->m_date.MONTH = month;
+        this->m_date.YEAR = year;
 
         return *this;
     }
@@ -404,6 +400,15 @@ namespace project
         if ((date.get_month_day() > month_days[date.get_month()]) || date.get_month_day() == 0)
             return false;
         if ((date.get_month() > 12) || date.get_month() == 0)
+            return false;
+        return true;
+    }
+    inline bool Date::is_valid_date(unsigned int day, unsigned int month, unsigned int year)
+    {
+        const unsigned int *month_days = get_day_each_month(year);
+        if ((day > month_days[month]) || day == 0)
+            return false;
+        if ((month > 12) || month == 0)
             return false;
         return true;
     }
