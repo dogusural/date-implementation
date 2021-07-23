@@ -258,13 +258,13 @@ namespace project
     }
     Date &Date::set(unsigned int day, unsigned int month, unsigned int year)
     {
-        if (!(Date::is_valid_date(day,month,year)))
+        if (!(Date::is_valid_date(day, month, year)))
         {
             throw bad_date{"invalid date format, use a valid value for Date and Month"};
         }
-        this->m_date.DAY = day;
-        this->m_date.MONTH = month;
-        this->m_date.YEAR = year;
+        set_month_day(day);
+        set_month(month);
+        set_year(year);
 
         return *this;
     }

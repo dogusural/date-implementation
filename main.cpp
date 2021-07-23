@@ -6,19 +6,20 @@ int main()
 
     project::Date my_date{1, 1, 2020};
     std::cout << my_date;
-    std::cout << "==========================================================="<<std::endl;
+    std::cout << "===========================================================" << std::endl;
 
-    // try
-    // {
-    //     project::Date str_date{"1/092021"};
-    // }
-    // catch (const std::exception &e)
-    // {
-    //     std::cerr << e.what() << '\n';
-    // }
+    try
+    {
+        project::Date str_date{"11/09/2022"};
+        std::cout << str_date << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
     std::cout << my_date - 1;
-    std::cout << "==========================================================="<<std::endl;
+    std::cout << "===========================================================" << std::endl;
 
     project::Date last_day{27, 2, 2020};
     std::cout << last_day;
@@ -59,9 +60,8 @@ int main()
     // project::Date input_date{};
     // std::cin >> input_date;
     // std::cout << input_date;
-    std::cout<<project::Date::random_date();
-    std::cout<<project::Date{std::time(0)};
-
+    std::cout << project::Date::random_date();
+    std::cout << project::Date{std::time(0)};
 
     return 0;
 }
