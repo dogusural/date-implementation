@@ -94,7 +94,7 @@ namespace project
         is >> day >> ch1 >> month >> ch2 >> year;
         if (ch1 != '/' || ch2 != '/')
         {
-            throw bad_date{"invalid date format use d/m/y"};
+            throw bad_date{"Invalid date format. Use d/m/y\n"};
         }
 
         date.set(day, month, year);
@@ -260,7 +260,7 @@ namespace project
     {
         if (!(Date::is_valid_date(day, month, year)))
         {
-            throw bad_date{"invalid date format, use a valid value for Date and Month"};
+            throw bad_date{"Invalid date format. Use a valid value for Date and Month\n"};
         }
         set_month_day(day);
         set_month(month);

@@ -10,7 +10,7 @@ int main()
 
     try
     {
-        project::Date str_date{"11/09/2022"};
+        project::Date str_date{"31/09/2022"};
         std::cout << str_date << std::endl;
     }
     catch (const std::exception &e)
