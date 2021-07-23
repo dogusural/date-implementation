@@ -12,6 +12,8 @@ namespace project
     {
         DATE(unsigned int day = 1, unsigned int month = 1, unsigned int year = 1900) : DAY{day}, MONTH{month}, YEAR{year}
         {
+            if (!Date::is_valid_date(day, month, year))
+                throw bad_date{"Invalid date format. Use a valid value for Date and Month\n"};
         }
         unsigned int DAY;
         unsigned int MONTH;

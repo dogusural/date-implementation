@@ -3,6 +3,7 @@
 
 int main()
 {
+    std::cout << project::Date{};
 
     project::Date my_date{1, 1, 2020};
     std::cout << my_date;
