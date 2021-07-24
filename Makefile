@@ -25,7 +25,7 @@ INCLUDE = \
 -I./include
 
 
-CFLAGS = -Wextra -pedantic -fPIC -std=c++17
+CFLAGS = -Wextra -pedantic -Wall -Werror -fPIC -std=c++17
 
 
 FLAGS = $(INCLUDE) -L ${LIB_DIR} $(LIBS) $(DEFINES)
