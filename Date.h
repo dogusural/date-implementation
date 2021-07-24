@@ -76,7 +76,8 @@ namespace project
         explicit Date();                                               //5
         explicit Date(unsigned int d, unsigned int m, unsigned int y); //6
         explicit Date(const char *p);                                  //7
-        explicit Date(std::time_t timer);                              //8
+        explicit Date(std::time_t timer);  
+        Date(const Date &);
         unsigned int get_month_day() const;                            //9
         unsigned int get_month() const;                                //10
         unsigned int get_year() const;                                 //11
@@ -87,6 +88,7 @@ namespace project
 
         Date &set(unsigned int day, unsigned int mon, unsigned int year); //17
         Date operator-(unsigned int day) const;                           //18
+        Date& operator=(const Date&);                                   //8
         Date &operator+=(unsigned int day);                               //19
         Date &operator-=(unsigned int day);                               //20
         Date &operator++();                                               //21

@@ -6,12 +6,16 @@ int main()
     std::cout << project::Date{};
 
     project::Date my_date{1, 1, 2020};
-    std::cout << my_date;
+    project::Date my_copy_date = my_date;
+    my_date++;
+    std::cout << my_copy_date;
+    my_copy_date = my_date;
+    std::cout << my_copy_date;
     std::cout << "===========================================================" << std::endl;
 
     try
     {
-        project::Date str_date{"31/09/2022"};
+        project::Date str_date{"30/09/2022"};
         std::cout << str_date << std::endl;
     }
     catch (const std::exception &e)
@@ -19,13 +23,9 @@ int main()
         std::cerr << e.what() << '\n';
     }
 
-    std::cout << my_date - 1;
-    std::cout << "===========================================================" << std::endl;
-
     project::Date last_day{27, 2, 2020};
     std::cout << last_day;
     std::cout << "===========================================================" << std::endl;
-
     last_day += 1;
     std::cout << last_day;
     std::cout << "===========================================================" << std::endl;
@@ -58,9 +58,9 @@ int main()
     while (i++ < 7)
         std::cout << --today << std::endl;
 
-    // project::Date input_date{};
-    // std::cin >> input_date;
-    // std::cout << input_date;
+    project::Date input_date{};
+    std::cin >> input_date;
+    std::cout << input_date;
     std::cout << project::Date::random_date();
     std::cout << project::Date{std::time(0)};
 
