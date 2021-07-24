@@ -84,7 +84,7 @@ namespace project
 
     std::ostream &operator<<(std::ostream &os, const Date &date)
     {
-        os << date.get_month_day() << " " << date.get_month_year() << " " << date.get_year() << " " << date.get_week_day() << "\n";
+        return os << date.get_month_day() << " " << date.get_month_year() << " " << date.get_year() << " " << date.get_week_day() << "\n";
     }
 
     std::istream &operator>>(std::istream &is, Date &date)
