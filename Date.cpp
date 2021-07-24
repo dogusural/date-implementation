@@ -275,7 +275,8 @@ namespace project
     //////////////////////////////////////////////////////// OPERATOR OVERLOADS ////////////////////////////////////////////////////////
     Date &Date::operator=(const Date &other)
     {
-        this->set(other.get_month_day(), other.get_month(), other.get_year());
+        if (this != &other)
+            this->set(other.get_month_day(), other.get_month(), other.get_year());
         return *this;
     }
 
