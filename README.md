@@ -13,4 +13,4 @@ Date class implementation for Necati Ergin Cpp assignment
 ### Manually from command line
 
 ```
-g++ main.cpp Date.cpp -o output -std=c++17 -Wextra -pedantic && ./output 
+g++ main.cpp Date.cpp -o output -std=c++17 -Wextra -Wall -Werror -pedantic && ./output 
