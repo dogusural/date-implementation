@@ -54,7 +54,7 @@ DATE_SOURCE_OBJECTS :=  $(addprefix $(OBJECT_FOLDER)/,$(notdir $(DATE_SOURCE_CPP
 
 
 
-$(TEST): $(TEST_SOURCE_OBJECTS) $(SHARED_LIB)
+$(TEST): $(TEST_SOURCE_OBJECTS)
 	@mkdir -p $(BINARY_FOLDER)
 	$(CC) $(FLAGS) $< -L$(OUTPUT_LIB_DIR) -lddate -o $@
 
@@ -75,7 +75,7 @@ test: $(TEST)
 lib: $(SHARED_LIB) $(STATIC_LIB)
 
 debug:
-	@echo  $(TEST_SOURCE_CPP) "\n\n" $(TEST_SOURCE_OBJECTS) "\n\n" $(DATE_SOURCE_CPP) "\n\n" $(DATE_SOURCE_OBJECTS)
+	@echo  $(TEST_SOURCE_CPP) "\n\n"$(TEST_SOURCE_OBJECTS) "\n\n"$(DATE_SOURCE_CPP) "\n\n"$(DATE_SOURCE_OBJECTS)
 
 install:
 	sudo cp $(SHARED_LIB) /usr/local/lib
