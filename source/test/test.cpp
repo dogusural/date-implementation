@@ -1,68 +1,23 @@
 #include "Date.h"
+
+#define CATCH_CONFIG_MAIN // This tells Catch to provide a main() - only do this in one cpp file
+#include "catch.hpp" // Header only library from 
+// https://web.archive.org/web/20170807171031/https://raw.githubusercontent.com/philsquared/Catch/master/single_include/catch.hpp
+
 #include <iostream>
 
-int main()
+
+project::Date my_date{1, 1, 2020};
+project::Date my_copy_date = my_date;
+unsigned int Factorial(unsigned int number)
 {
-    std::cout << project::Date{};
+    return number <= 1 ? number : Factorial(number - 1) * number;
+}
 
-    project::Date my_date{1, 1, 2020};
-    project::Date my_copy_date = my_date;
-    my_date++;
-    std::cout << my_copy_date;
-    my_copy_date = my_date;
-    std::cout << my_copy_date;
-    std::cout << "===========================================================" << std::endl;
-
-    try
-    {
-        project::Date str_date{"30/09/2022"};
-        std::cout << str_date << std::endl;
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-
-    project::Date last_day{27, 2, 2020};
-    std::cout << last_day;
-    std::cout << "===========================================================" << std::endl;
-    last_day += 1;
-    std::cout << last_day;
-    std::cout << "===========================================================" << std::endl;
-
-    last_day -= 1;
-    int i = 0;
-    while (++i < 10)
-        std::cout << ++last_day;
-    std::cout << "===========================================================" << std::endl;
-    std::cout << last_day++;
-    std::cout << ++last_day;
-    std::cout << "===========================================================" << std::endl;
-    ;
-
-    std::cout << std::boolalpha << (last_day <= project::Date{last_day + 1}) << '\n';
-    std::cout << std::boolalpha << (last_day >= project::Date{last_day - 1}) << '\n';
-    std::cout << std::boolalpha << (last_day == project::Date{last_day + 1}) << '\n';
-    std::cout << std::boolalpha << (last_day < project::Date{1 + last_day}) << '\n';
-    std::cout << std::boolalpha << (last_day != project::Date{1 + last_day}) << '\n';
-    std::cout << "===========================================================" << std::endl;
-
-    project::Date::Weekday today = project::Date::Weekday::Monday;
-
-    i = 0;
-    while (i++ < 7)
-        std::cout << ++today << std::endl;
-    std::cout << "===========================================================" << std::endl;
-    i = 0;
-
-    while (i++ < 7)
-        std::cout << --today << std::endl;
-
-    project::Date input_date{};
-    std::cin >> input_date;
-    std::cout << input_date;
-    std::cout << project::Date::random_date();
-    std::cout << project::Date{std::time(0)};
-
-    return 0;
+TEST_CASE("Factorials are computed", "[factorial]")
+{
+    REQUIRE(Factorial(1) == 1);
+    REQUIRE(Factorial(2) == 2);
+    REQUIRE(Factorial(3) == 6);
+    REQUIRE(Factorial(10) == 3628800);
 }
