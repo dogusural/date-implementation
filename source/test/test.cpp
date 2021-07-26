@@ -20,24 +20,29 @@ project::Date addition(project::Date date, int days)
 {
     return date + days;
 }
+int substraction(project::Date first_date, project::Date second_date)
+{
+    return first_date - second_date;
+}
 
+TEST_CASE("substraction test", "[substraction]")
+{
+    REQUIRE(substraction((project::Date{31, 12, 2020}),(project::Date{1, 1, 2020})) == 365);
+    REQUIRE(substraction((project::Date{31, 12, 2021}),(project::Date{1, 1, 2021})) == 364);
+}
 TEST_CASE("Pre increment test", "[pre_increment]")
 {
-    project::Date my_date{1, 1, 2020};
-
-    REQUIRE(pre_increment(my_date) > my_date);
+    REQUIRE(pre_increment((project::Date{1, 1, 2020})) > (project::Date{1, 1, 2020}));
 }
 
 TEST_CASE("Post increment test", "[post_increment]")
 {
-    project::Date my_date{1, 1, 2020};
-
-    REQUIRE(post_increment(my_date) == my_date);
+    REQUIRE(post_increment((project::Date{1, 1, 2020})) == (project::Date{1, 1, 2020}));
 }
 
 TEST_CASE("Addition test", "[addition]")
 {
-    project::Date my_date{28, 2, 2020};
-
-    REQUIRE(addition(my_date , 10) == (project::Date{9,3,2020}) );
+    REQUIRE(addition((project::Date{28, 2, 2020}), 10) == (project::Date{9, 3, 2020}));
+    REQUIRE(addition((project::Date{28, 2, 2021}), 10) == (project::Date{10, 3, 2020}));
+    REQUIRE(addition((project::Date{28, 12, 2005}), 10) == (project::Date{7, 1, 2006}));
 }
