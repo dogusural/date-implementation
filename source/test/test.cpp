@@ -24,16 +24,35 @@ int substraction(project::Date first_date, project::Date second_date)
 {
     return first_date - second_date;
 }
-bool logic_operators()
+bool equal()
 {
     bool result = false;
     project::Date date = project::Date::random_date();
-    std::cout << "Randomly generated date for the logic_operatos test :" << date << std::endl;
-    result &= (date + 1 == 1 + date);
-    result &= (date + 1 > date);
-    result &= (date -3 >= date -2);
-    result &= (date -100 < date - 99);
-    return result;
+    return result = (date + 1 == 1 + date);
+}
+bool greater_than()
+{
+    bool result = false;
+    project::Date date = project::Date::random_date();
+    return result = (date + 1 > date);
+}
+bool lesser_or_equal_to()
+{
+    bool result = false;
+    project::Date date = project::Date::random_date();
+    return result = (date - 3 <= date - 2);
+}
+bool greater_or_equal_to()
+{
+    bool result = false;
+    project::Date date = project::Date::random_date();
+    return result = (date + 3 >= date - 2);
+}
+bool lesser_than()
+{
+    bool result = false;
+    project::Date date = project::Date::random_date();
+    return result = (date - 100 < date - 99);
 }
 
 TEST_CASE("substraction test", "[substraction]")
@@ -58,7 +77,11 @@ TEST_CASE("Addition test", "[addition]")
     REQUIRE(addition((project::Date{28, 12, 2005}), 10) == (project::Date{7, 1, 2006}));
 }
 
-TEST_CASE("Logic operators test", "[logic_operators]")
+TEST_CASE("Comperative operators test", "[logic_operators]")
 {
-    REQUIRE(logic_operators() == (true));
+    REQUIRE(equal() == (true));
+    REQUIRE(lesser_than() == (true));
+    REQUIRE(greater_than() == (true));
+    REQUIRE(lesser_or_equal_to() == (true));
+    REQUIRE(greater_or_equal_to() == (true));
 }
