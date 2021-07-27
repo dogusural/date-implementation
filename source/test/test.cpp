@@ -54,6 +54,12 @@ bool lesser_than()
     project::Date date = project::Date::random_date();
     return result = (date - 100 < date - 99);
 }
+bool not_equal()
+{
+    bool result = false;
+    project::Date date = project::Date::random_date();
+    return result = (date + 1 != date - 1);
+}
 
 TEST_CASE("substraction test", "[substraction]")
 {
@@ -84,4 +90,5 @@ TEST_CASE("Comperative operators test", "[logic_operators]")
     REQUIRE(greater_than() == (true));
     REQUIRE(lesser_or_equal_to() == (true));
     REQUIRE(greater_or_equal_to() == (true));
+    REQUIRE(not_equal() == (true));
 }
