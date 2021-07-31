@@ -73,18 +73,31 @@ project::Date get_date_from_stream(const char *file_name)
 {
     std::fstream my_stream;
     my_stream.open(file_name, std::fstream::in);
-    project::Date file_date{};
-    my_stream >> file_date;
-    my_stream.close();
-    return file_date;
+    if (my_stream.good())
+    {
+        project::Date file_date{};
+        my_stream >> file_date;
+        my_stream.close();
+        return file_date;
+    }
+    else
+    {
+        return project::Date{};
+    }
 }
 
-void write_date_to_stream(const char *date, const char *file_name)
+bool write_date_to_stream(const char *date, const char *file_name)
 {
     std::fstream my_stream;
     my_stream.open(file_name, std::fstream::trunc | std::fstream::out);
-    my_stream << date;
-    my_stream.close();
+    if (my_stream.good())
+    {
+        my_stream << date;
+        my_stream.close();
+        return true;
+    }
+    else
+        return false;
 }
 TEST_CASE("substraction test", "[substraction]")
 {
@@ -124,7 +137,7 @@ TEST_CASE("Comperative operators test", "[logic_operators]")
 TEST_CASE("Standard input test", "[get_date_from_stream]")
 {
     const char *file_name = "date_file.tmp";
-    write_date_to_stream("29/2/1904", file_name);
+    REQUIRE(write_date_to_stream("29/2/1904", file_name) == (true));
     REQUIRE(get_date_from_stream(file_name) == (project::Date{29, 2, 1904}));
     REQUIRE(remove(file_name) == 0);
 }
