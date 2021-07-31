@@ -73,17 +73,16 @@ project::Date get_date_from_stream(const char *file_name)
 {
     std::fstream my_stream;
     my_stream.open(file_name, std::fstream::in);
-    std::string str;
-    my_stream >> str;
+    project::Date file_date{};
+    my_stream >> file_date;
     my_stream.close();
-    return project::Date{str.c_str()};
+    return file_date;
 }
 
 void write_date_to_stream(const char *date, const char *file_name)
 {
     std::fstream my_stream;
     my_stream.open(file_name, std::fstream::trunc | std::fstream::out);
-
     my_stream << date;
     my_stream.close();
 }
