@@ -15,6 +15,15 @@ project::Date post_increment(project::Date date)
 {
     return date++;
 }
+project::Date pre_decrement(project::Date date)
+{
+    return --date;
+}
+
+project::Date post_decrement(project::Date date)
+{
+    return date--;
+}
 
 project::Date addition(project::Date date, int days)
 {
@@ -60,20 +69,40 @@ bool not_equal()
     project::Date date = project::Date::random_date();
     return result = (date + 1 != date - 1);
 }
+project::Date get_date_from_stream(const char *file_name)
+{
+    std::fstream my_stream;
+    my_stream.open(file_name, std::fstream::in);
+    std::string str;
+    my_stream >> str;
+    my_stream.close();
+    return project::Date{str.c_str()};
+}
 
+void write_date_to_stream(const char *date, const char *file_name)
+{
+    std::fstream my_stream;
+    my_stream.open(file_name, std::fstream::trunc | std::fstream::out);
+
+    my_stream << date;
+    my_stream.close();
+}
 TEST_CASE("substraction test", "[substraction]")
 {
     REQUIRE(substraction((project::Date{31, 12, 2020}), (project::Date{1, 1, 2020})) == 365);
     REQUIRE(substraction((project::Date{31, 12, 2021}), (project::Date{1, 1, 2021})) == 364);
 }
-TEST_CASE("Pre increment test", "[pre_increment]")
+
+TEST_CASE("increment test", "[increment]")
 {
     REQUIRE(pre_increment((project::Date{1, 1, 2020})) > (project::Date{1, 1, 2020}));
+    REQUIRE(post_increment((project::Date{1, 1, 2020})) == (project::Date{1, 1, 2020}));
 }
 
-TEST_CASE("Post increment test", "[post_increment]")
+TEST_CASE("decrement test", "[decrement]")
 {
-    REQUIRE(post_increment((project::Date{1, 1, 2020})) == (project::Date{1, 1, 2020}));
+    REQUIRE(pre_decrement((project::Date{1, 1, 2020})) < (project::Date{1, 1, 2020}));
+    REQUIRE(post_decrement((project::Date{1, 1, 2020})) == (project::Date{1, 1, 2020}));
 }
 
 TEST_CASE("Addition test", "[addition]")
@@ -91,4 +120,10 @@ TEST_CASE("Comperative operators test", "[logic_operators]")
     REQUIRE(lesser_or_equal_to() == (true));
     REQUIRE(greater_or_equal_to() == (true));
     REQUIRE(not_equal() == (true));
+}
+
+TEST_CASE("Standard input test", "[get_date_from_stream]")
+{
+    write_date_to_stream("29/2/1904", "date_file.tmp");
+    REQUIRE(get_date_from_stream("date_file.tmp") == (project::Date{29, 2, 1904}));
 }
