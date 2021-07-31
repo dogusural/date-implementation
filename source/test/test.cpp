@@ -124,6 +124,8 @@ TEST_CASE("Comperative operators test", "[logic_operators]")
 
 TEST_CASE("Standard input test", "[get_date_from_stream]")
 {
-    write_date_to_stream("29/2/1904", "date_file.tmp");
-    REQUIRE(get_date_from_stream("date_file.tmp") == (project::Date{29, 2, 1904}));
+    const char *file_name = "date_file.tmp";
+    write_date_to_stream("29/2/1904", file_name);
+    REQUIRE(get_date_from_stream(file_name) == (project::Date{29, 2, 1904}));
+    REQUIRE(remove(file_name) == 0);
 }
